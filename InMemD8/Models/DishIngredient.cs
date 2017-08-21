@@ -13,5 +13,7 @@ namespace InMemD8.Models
         public int IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }
 
+        //test
+
     }
 }
