@@ -7,22 +7,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InMemD8.Data;
 using InMemD8.Models;
+using Microsoft.AspNetCore.Http;
+using InMemD8.Services;
 
 namespace InMemD8.Controllers
 {
     public class DishesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IngredientService _ingredientService;
 
-        public DishesController(ApplicationDbContext context)
+        public DishesController(ApplicationDbContext context, IngredientService ingredientService)
         {
             _context = context;
+            _ingredientService = ingredientService;
         }
 
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Dishes.ToListAsync());
+            var catList = _context.Category.ToList();
+
+            //var dishes = await _context.
+            return View(await _context.Dishes
+                .Include(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient)
+                .ToListAsync());
         }
 
         // GET: Dishes/Details/5
@@ -32,11 +42,12 @@ namespace InMemD8.Controllers
             {
                 return NotFound();
             }
-
+            var catList = _context.Category.ToList();
             var dish = await _context.Dishes
                 .Include(d => d.DishIngredients)
-                .ThenInclude(di=> di.Ingredient)
+                .ThenInclude(di => di.Ingredient)
                 .SingleOrDefaultAsync(m => m.DishId == id);
+
             if (dish == null)
             {
                 return NotFound();
@@ -48,6 +59,9 @@ namespace InMemD8.Controllers
         // GET: Dishes/Create
         public IActionResult Create()
         {
+            //ViewData["ExtraList"] = new SelectList(_context.Ingredients, "IngredientId", "Name");
+            //var dish = 0; //= await _context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+            ViewData["CatList"] = new SelectList(_context.Category, "CategoryId", "Name");
             return View();
         }
 
@@ -56,11 +70,22 @@ namespace InMemD8.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DishId,Name,Price")] Dish dish)
+        public async Task<IActionResult> Create([Bind("DishId,Name,Price, CategoryId")] Dish dish, IFormCollection form)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(dish);
+               
+                foreach (var ingredient in _ingredientService.GetIngredients())
+                {
+                    var dishIngredient = new DishIngredient
+                    {
+                        Ingredient = ingredient,
+                        Dish = dish,
+                        Checkbox = form.Keys.Any(x => x == $"checkboxes-{ingredient.IngredientId}")
+                    };
+                    _context.DishIngredients.Add(dishIngredient);
+                }
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -75,7 +100,14 @@ namespace InMemD8.Controllers
                 return NotFound();
             }
 
-            var dish = await _context.Dishes.SingleOrDefaultAsync(m => m.DishId == id);
+           
+            var dish = await _context.Dishes
+                .Include(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient)
+                .SingleOrDefaultAsync(m => m.DishId == id);
+
+            ViewData["CatList"] = new SelectList(_context.Category, "CategoryId", "Name", dish.CategoryId);
+            //
             if (dish == null)
             {
                 return NotFound();
@@ -88,7 +120,7 @@ namespace InMemD8.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price")] Dish dish)
+        public async Task<IActionResult> Edit(int id, [Bind("DishId,Name,Price,CategoryId")] Dish dish, IFormCollection form)
         {
             if (id != dish.DishId)
             {
@@ -99,8 +131,32 @@ namespace InMemD8.Controllers
             {
                 try
                 {
-                    _context.Update(dish);
+                    var dishToEdit = await _context.Dishes.
+                        Include(d => d.DishIngredients).
+                        SingleOrDefaultAsync(m => m.DishId == id);
+                    dishToEdit.Name = dish.Name;
+                    dishToEdit.Price = dish.Price;
+                    dishToEdit.CategoryId = dish.CategoryId;
+                    foreach (var dishIngredient in dishToEdit.DishIngredients)
+                    {
+                        _context.Remove(dishIngredient);
+                    }
+
                     await _context.SaveChangesAsync();
+                   
+                    foreach (var ingredient in _ingredientService.GetIngredients())
+                    {
+                        var dishIngredient = new DishIngredient
+                        {
+                            Ingredient = ingredient,
+                            Dish = dish,
+                            Checkbox = form.Keys.Any(x => x == $"checkboxes-{ingredient.IngredientId}")
+                        };
+
+                        //_context.Update(newDish);
+                        _context.DishIngredients.Add(dishIngredient);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -150,6 +206,33 @@ namespace InMemD8.Controllers
         private bool DishExists(int id)
         {
             return _context.Dishes.Any(e => e.DishId == id);
+        }
+
+
+        // GET: Dishes/AddToCart/6
+        public async Task<IActionResult> AddToCart(int? id)
+        {
+            var dish = await _context.Dishes
+                .SingleOrDefaultAsync(m => m.DishId == id);
+            if (dish == null)
+            {
+                return NotFound();
+            }
+
+            return View(dish);
+
+          
+        }
+
+        // POST: Dishes/AddToCart/6
+        [HttpPost, ActionName("AddToCart")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            var d = id.ToString();
+
+            return RedirectToAction("Index");
+           
         }
     }
 }

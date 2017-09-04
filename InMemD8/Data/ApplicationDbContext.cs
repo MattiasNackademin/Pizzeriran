@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using InMemD8.Models;
 
@@ -14,6 +10,7 @@ namespace InMemD8.Data
             : base(options)
         {
         }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -30,6 +27,16 @@ namespace InMemD8.Data
                 .WithMany(i => i.DishIngredients)
                 .HasForeignKey(di => di.IngredientId);
 
+            builder.Entity<Cart>()
+                .HasMany(i => i.Item)
+                .WithOne(c => c.Cart)
+                .HasForeignKey(f => f.CartId);
+
+            builder.Entity<CartItem>()
+                .HasMany(i => i.CartItemIngredients)
+                .WithOne(ci => ci.CartItem)
+                .HasForeignKey(f => f.CartItemId);
+
 
 
 
@@ -43,6 +50,11 @@ namespace InMemD8.Data
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient>Ingredients { get; set; }
         public DbSet<DishIngredient>DishIngredients { get; set;  }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<CartItemIngredient> CartItemIngredients { get; set; }
+        public DbSet<Cart> Cart { get; set; }
+        public DbSet<Category> Category { get; set; }
+
     }
     }
 
