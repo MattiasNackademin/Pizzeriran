@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using InMemD8.Data;
 using InMemD8.Models;
 using InMemD8.Services;
+using Microsoft.AspNetCore.Http;
+
 
 namespace InMemD8
 {
@@ -40,12 +42,19 @@ namespace InMemD8
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<RoleManager<IdentityRole>>();
+            services.AddTransient<IngredientService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(Cart.GetCart);
+           
 
             services.AddMvc();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser>userManager, ApplicationDbContext context, RoleManager<IdentityRole>roleManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<ApplicationUser>userManager, ApplicationDbContext context, RoleManager<IdentityRole>roleManager, IngredientService ingredientService)
         {
             if (env.IsDevelopment())
             {
@@ -61,14 +70,14 @@ namespace InMemD8
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Dishes}/{action=Index}/{id?}");
             });
-           DbInitializer.Initialize(context, userManager, roleManager);
+           DbInitializer.Initialize(context, userManager, roleManager, ingredientService);
         }
     }
 }

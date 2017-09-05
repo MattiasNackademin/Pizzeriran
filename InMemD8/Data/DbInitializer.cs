@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InMemD8.Models;
+using InMemD8.Services;
 using Microsoft.AspNetCore.Identity;
+
 
 namespace InMemD8.Data
 {
@@ -11,7 +13,7 @@ namespace InMemD8.Data
     {
 
         public static void Initialize(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole>roleManager)
+            RoleManager<IdentityRole>roleManager, IngredientService ingredientService)
         {
             var aUser = new ApplicationUser();
             aUser.UserName = "student@test.com";
@@ -34,13 +36,24 @@ namespace InMemD8.Data
                 var ham = new Ingredient { Name = "Ham" };
                 var pineapple = new Ingredient { Name = "Pineapple" };
                 var mushrooms = new Ingredient {Name = "Mushrooms"};
+                var chicken = new Ingredient {Name = "Chicken"};
+                var meatsauce = new Ingredient {Name = "Meat Sauce"};
+                var spagetti = new Ingredient {Name = "Spagetti"};
 
 
+                //Category
+                var pizza = new Category { Name = "Pizza" };
+                var salad = new Category {Name = "Salad"};
+                var pasta = new Category {Name = "Pasta"};
 
+                //Dish
+                var cappricciosa = new Dish { Category = pizza,  Name = "Capricciosa", Price=79};
+                var margaritha = new Dish { Category = pizza, Name = "Margaritha", Price =89};
+                var hawaii = new Dish {Category = pizza, Name = "Hawaii", Price = 75};
 
-                var cappricciosa = new Dish {Name = "Capricciosa", Price=79};
-                var margaritha = new Dish { Name = "Margaritha", Price =89};
-                var hawaii = new Dish { Name = "Hawaii", Price = 75};
+                var chickensalad = new Dish {Category = salad, Name = "Chicken Salad", Price = 65};
+
+                var pastabolognese = new Dish {Category = pasta, Name = "Bolognese", Price = 99};
 
                 //Cappricciosa
                 var capricciosaCheese = new DishIngredient {Dish = cappricciosa, Ingredient = cheese};
@@ -74,12 +87,36 @@ namespace InMemD8.Data
                 hawaii.DishIngredients.Add(hawaiiHam);
                 hawaii.DishIngredients.Add(hawaiiPineapple);
 
+                //Chicken Salad
+                var chickenCheese = new DishIngredient { Dish = chickensalad, Ingredient = cheese };
+                var chickenTomatoe = new DishIngredient { Dish = chickensalad, Ingredient = tomatoe };
+                var chickenChicken = new DishIngredient { Dish = chickensalad, Ingredient = chicken };
+                var chickenPineapple = new DishIngredient { Dish = chickensalad, Ingredient = pineapple };
+
+                chickensalad.DishIngredients = new List<DishIngredient>();
+                chickensalad.DishIngredients.Add(chickenCheese);
+                chickensalad.DishIngredients.Add(chickenTomatoe);
+                chickensalad.DishIngredients.Add(chickenChicken);
+                chickensalad.DishIngredients.Add(chickenPineapple);
+                
+                // Spagetti Bolognese
+
+                var pastaSpagetti = new DishIngredient {Dish = pastabolognese, Ingredient = spagetti};
+                var pastameatsauce = new DishIngredient {Dish = pastabolognese, Ingredient = meatsauce};
+
+                pastabolognese.DishIngredients = new List<DishIngredient>();
+                pastabolognese.DishIngredients.Add(pastaSpagetti);
+                pastabolognese.DishIngredients.Add(pastameatsauce);
+
+
 
 
                 context.Dishes.Add(cappricciosa);
                 context.Dishes.Add(margaritha);
                 context.Dishes.Add(hawaii);
-                context.AddRange(tomatoe, ham, cheese, mushrooms, pineapple);
+                context.Dishes.Add(chickensalad);
+                context.Dishes.Add(pastabolognese);
+                context.AddRange(tomatoe, ham, cheese, mushrooms, pineapple, chicken, spagetti, meatsauce);
 
                 context.SaveChanges();
 

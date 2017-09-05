@@ -1,5 +1,5 @@
 ﻿@model InMemD8.Models.Dish
-
+@inject InMemD8.Services.IngredientService IngredientService
 @{
     ViewData["Title"] = "Create";
 }
@@ -11,12 +11,25 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <div class="form-group">
+                <select class="form-control" asp-for="CategoryId" asp-items="ViewBag.CatList"></select>
+            </div>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                @foreach (var item in IngredientService.GetIngredients())
+                {
+                    <input type="checkbox" name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId" />
+                    <label asp-for="@item.Name">@item.Name</label>
+                    <br />
+                }
+            </div>
+            @*<input type="checkbox" name="name" value="id" class="form-control" asp-for="" asp-items="ViewBag.ExtraList">
+                </div>*@
             <div class="form-group">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
@@ -32,4 +45,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
