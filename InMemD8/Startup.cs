@@ -75,7 +75,7 @@ namespace InMemD8
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Dishes}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
            DbInitializer.Initialize(context, userManager, roleManager, ingredientService);
         }

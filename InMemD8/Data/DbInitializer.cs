@@ -31,19 +31,19 @@ namespace InMemD8.Data
 
             if (context.Dishes.ToList().Count == 0)
             {
-                var cheese = new Ingredient {Name = "Cheese"};
-                var tomatoe = new Ingredient { Name = "Tomatoe" };
-                var ham = new Ingredient { Name = "Ham" };
-                var pineapple = new Ingredient { Name = "Pineapple" };
-                var mushrooms = new Ingredient {Name = "Mushrooms"};
-                var chicken = new Ingredient {Name = "Chicken"};
-                var meatsauce = new Ingredient {Name = "Meat Sauce"};
+                var cheese = new Ingredient {Name = "Ost"};
+                var tomatoe = new Ingredient { Name = "Tomat" };
+                var ham = new Ingredient { Name = "Skinka" };
+                var pineapple = new Ingredient { Name = "Annanas" };
+                var mushrooms = new Ingredient {Name = "Champinjoner"};
+                var chicken = new Ingredient {Name = "Kyckling"};
+                var meatsauce = new Ingredient {Name = "Köttfärssås"};
                 var spagetti = new Ingredient {Name = "Spagetti"};
 
 
                 //Category
                 var pizza = new Category { Name = "Pizza" };
-                var salad = new Category {Name = "Salad"};
+                var salad = new Category {Name = "Sallad"};
                 var pasta = new Category {Name = "Pasta"};
 
                 //Dish
@@ -51,7 +51,7 @@ namespace InMemD8.Data
                 var margaritha = new Dish { Category = pizza, Name = "Margaritha", Price =89};
                 var hawaii = new Dish {Category = pizza, Name = "Hawaii", Price = 75};
 
-                var chickensalad = new Dish {Category = salad, Name = "Chicken Salad", Price = 65};
+                var chickensalad = new Dish {Category = salad, Name = "Kyckling Salad", Price = 65};
 
                 var pastabolognese = new Dish {Category = pasta, Name = "Bolognese", Price = 99};
 

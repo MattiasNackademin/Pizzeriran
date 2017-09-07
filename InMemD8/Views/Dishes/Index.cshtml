@@ -3,7 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<h1>Meny</h1>
+<img id="pizza" src="~/images/Pizza.jpg" width="370" height="150" />
+<img id="pasta" src="~/images/Pasta.jpg" width="370" height="200"/>
+<img id="sallad" src="~/images/sallad.jpg"width="370" height="200" />
+<br />
+<br />
 <h2>Menu</h2>
 
 @if (User.IsInRole("Admin"))
@@ -61,6 +66,11 @@
                     <a asp-action="Delete" asp-route-id="@item.DishId">Delete</a>
                 </td>
             }
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |*@
+                
+            </td>
         </tr>
 
     }
