@@ -12,8 +12,15 @@ namespace InMemD8.Models
         public Cart Cart { get; set; }
         public Dish Dish { get; set; }
         public int DishId { get; set; }
-        public int Quantity { get; set; }
+        public int Qantity { get; set; }
         public List<CartItemIngredient> CartItemIngredients { get; set; }
+
+
+        //public int CartItemId { get; set; }
+        //public Dish Dish { get; set; }
+        //public int Amount { get; set; }
+        //public int CartId { get; set; }
+
     }
 
     

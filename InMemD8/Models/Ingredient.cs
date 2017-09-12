@@ -10,6 +10,7 @@ namespace InMemD8.Models
     {
         public int IngredientId { get; set; }
         public string Name { get; set; }
+        public decimal Price { get; set; }
 
         public List<DishIngredient> DishIngredients { get; set; }
     }

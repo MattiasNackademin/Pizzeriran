@@ -28,7 +28,7 @@ namespace InMemD8.Data
                 .HasForeignKey(di => di.IngredientId);
 
             builder.Entity<Cart>()
-                .HasMany(i => i.Item)
+                .HasMany(i => i.CartItems)
                 .WithOne(c => c.Cart)
                 .HasForeignKey(f => f.CartId);
 
@@ -41,7 +41,7 @@ namespace InMemD8.Data
 
 
 
-             base.OnModelCreating(builder);
+            base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);

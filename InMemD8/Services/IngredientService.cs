@@ -27,9 +27,9 @@ namespace InMemD8.Services
         {
             var ingredients = _context.DishIngredients.Include(di => di.Ingredient).Where(di => di.DishId == id && di.Checkbox);
             string checkedIngredients = "";
-            foreach (var ing in ingredients)
+            foreach (var i in ingredients)
             {
-                checkedIngredients += ing.Ingredient.Name + " ";
+                checkedIngredients += i.Ingredient.Name + " ";
             }
             return checkedIngredients;
         }

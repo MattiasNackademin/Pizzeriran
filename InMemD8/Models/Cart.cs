@@ -10,7 +10,7 @@ namespace InMemD8.Models
         public int CartId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public int ApplicationUserId { get; set; }
-        public List<CartItem> Item{ get; set; }
+        public List<CartItem> CartItems{ get; set; }
 
 
         public static object GetCart(IServiceProvider sp)

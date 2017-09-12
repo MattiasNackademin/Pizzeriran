@@ -24,20 +24,22 @@
                 @foreach (var item in IngredientService.GetIngredients())
                 {
 
-                   
-                    <input type="checkbox"  name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId" />
-                    <label asp-for="@item.Name">@item.Name</label>
-                    <br />
+                    if (Model.DishIngredients.Any(i => i.IngredientId == item.IngredientId && i.Checkbox))
+                    {
+                        <input checked type="checkbox" name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId"/>
+                        <label asp-for="@item.Name">@item.Name</label>
+                        <br/>
+                    }
 
-                   
+                    else
+                    {
+                        <input type="checkbox" name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId"/>
+                        <label asp-for="@item.Name">@item.Name</label>
+
+                    }
+
                 }
-                @foreach (var ingr in Model.DishIngredients)
-                {
-                    <input type="checkbox" name="checkboxes-@ingr.Ingredient.Name" value="checkboxes-@ingr.Ingredient.Name" checked />
-                    <label asp-for="@ingr.Ingredient.Name">@ingr.Ingredient.Name</label>
-
-                }
-
+                
 
             </div>
 

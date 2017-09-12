@@ -33,13 +33,10 @@
     </dl>
 </div>
 <h5><b>Ingredients:</b></h5>
-@foreach(var item in Model.DishIngredients) //.Where(di=> di.Checkbox) ta bort 
+@foreach(var item in Model.DishIngredients.Where(di=> di.Checkbox))
 {
     <span>@item.Ingredient.Name </span>
     <br/>
-   
-    
-
 }
 
 <div>
