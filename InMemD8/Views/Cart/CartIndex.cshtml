@@ -1,0 +1,13 @@
+﻿@model CartViewModel
+
+    
+
+<div>
+    <h1>Total pris: @Model.Total</h1>
+    @foreach (var item in Model.CartItems)
+    {
+        <h2>@item.Name</h2>
+      
+        <a asp-action="Edit" asp-controller="Cart" asp-route-id="@item.Id">Ändra</a>
+    }
+</div>

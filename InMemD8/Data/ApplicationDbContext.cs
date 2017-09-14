@@ -15,27 +15,17 @@ namespace InMemD8.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<DishIngredient>()
-                .HasKey(di => new {di.DishId, di.IngredientId});
+                .HasKey(di => new {di.Id, di.IngredientId});
 
             builder.Entity<DishIngredient>()
                 .HasOne(di => di.Dish)
                 .WithMany(d => d.DishIngredients)
-                .HasForeignKey(di => di.DishId);
+                .HasForeignKey(di => di.Id);
 
             builder.Entity<DishIngredient>()
                 .HasOne(di => di.Ingredient)
                 .WithMany(i => i.DishIngredients)
                 .HasForeignKey(di => di.IngredientId);
-
-            builder.Entity<Cart>()
-                .HasMany(i => i.CartItems)
-                .WithOne(c => c.Cart)
-                .HasForeignKey(f => f.CartId);
-
-            builder.Entity<CartItem>()
-                .HasMany(i => i.CartItemIngredients)
-                .WithOne(ci => ci.CartItem)
-                .HasForeignKey(f => f.CartItemId);
 
 
 
@@ -50,9 +40,6 @@ namespace InMemD8.Data
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Ingredient>Ingredients { get; set; }
         public DbSet<DishIngredient>DishIngredients { get; set;  }
-        public DbSet<CartItem> CartItems { get; set; }
-        public DbSet<CartItemIngredient> CartItemIngredients { get; set; }
-        public DbSet<Cart> Cart { get; set; }
         public DbSet<Category> Category { get; set; }
 
     }

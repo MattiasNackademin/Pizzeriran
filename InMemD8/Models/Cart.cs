@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Threading.Tasks;
 
 namespace InMemD8.Models
@@ -13,10 +14,7 @@ namespace InMemD8.Models
         public List<CartItem> CartItems{ get; set; }
 
 
-        public static object GetCart(IServiceProvider sp)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 
    

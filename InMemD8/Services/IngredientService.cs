@@ -25,7 +25,7 @@ namespace InMemD8.Services
         // Get Checked Ingredients
         public string AddedIngredients(int id)
         {
-            var ingredients = _context.DishIngredients.Include(di => di.Ingredient).Where(di => di.DishId == id && di.Checkbox);
+            var ingredients = _context.DishIngredients.Include(di => di.Ingredient).Where(di => di.Id == id && di.Checkbox);
             string checkedIngredients = "";
             foreach (var i in ingredients)
             {

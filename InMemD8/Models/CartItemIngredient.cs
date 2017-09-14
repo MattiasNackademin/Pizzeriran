@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using InMemD8.Models;
 
-namespace InMemD8.Models
+namespace InMemD8
 {
     public class CartItemIngredient
     {
-        public int CartItemIngredientId { get; set; }
-        public int CartItemId { get; set; }
-        public CartItem CartItem { get; set; }
-        public int IngredientId { get; set; }
-        public Ingredient Ingredient { get; set; }
-        public bool Enabled { get; set; }
-    }  // nya tillägg
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public bool Selected { get; set; }
+        public bool Included { get; set; }
+    }
 }

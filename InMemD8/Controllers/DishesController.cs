@@ -207,30 +207,32 @@ namespace InMemD8.Controllers
         }
 
 
-        // GET: Dishes/AddToCart/6
-        public async Task<IActionResult> AddToCart(int? id)
-        {
-            var dish = await _context.Dishes
-                .SingleOrDefaultAsync(m => m.DishId == id);
-            if (dish == null)
-            {
-                return NotFound();
-            }
+        //// GET: Dishes/AddToCart/6
+        //public async Task<IActionResult> AddToCart(int? id)
+        //{
+        //    var dish = await _context.Dishes
+        //        .SingleOrDefaultAsync(m => m.DishId == id);
+        //    if (dish == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(dish);
+        //    return View(dish);
 
           
-        }
+        //}
 
-        // POST: Dishes/AddToCart/6
-        [HttpPost, ActionName("AddToCart")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddToCart(int id)
-        {
-            var d = id.ToString();
+        //// POST: Dishes/AddToCart/6
+        //[HttpPost, ActionName("AddToCart")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddToCart(int id)
+        //{
+        //    var d = id.ToString();
 
-            return RedirectToAction("Index");
+        //    return RedirectToAction("Index");
            
-        }
+        //}
+
+       
     }
 }

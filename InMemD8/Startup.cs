@@ -43,9 +43,10 @@ namespace InMemD8
             services.AddTransient<UserManager<ApplicationUser>>();
             services.AddTransient<RoleManager<IdentityRole>>();
             services.AddTransient<IngredientService>();
+            services.AddTransient<CartService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped(Cart.GetCart);
+            //services.AddScoped(Cart.GetCart);
            
 
             services.AddMvc();
