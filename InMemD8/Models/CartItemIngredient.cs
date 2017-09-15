@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using InMemD8.Models;
 
 namespace InMemD8
@@ -7,6 +8,7 @@ namespace InMemD8
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<DishIngredient> DishIngredients { get; set; }
         public decimal Price { get; set; }
         public bool Selected { get; set; }
         public bool Included { get; set; }

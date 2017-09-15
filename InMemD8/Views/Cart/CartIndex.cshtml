@@ -1,4 +1,5 @@
 ﻿@model CartViewModel
+@using InMemD8
 
     
 
@@ -6,8 +7,16 @@
     <h1>Total pris: @Model.Total</h1>
     @foreach (var item in Model.CartItems)
     {
+        <h2>@item.CategoryName</h2>
         <h2>@item.Name</h2>
-      
+        <p>Ingredients: @string.Join(",", item.Ingredients.OrderBy(x => x.DishIngredients).Select(x => x.Name))</p>
+        <p>@item.Price</p>
         <a asp-action="Edit" asp-controller="Cart" asp-route-id="@item.Id">Ändra</a>
+
     }
+    
+
 </div>
+
+
+

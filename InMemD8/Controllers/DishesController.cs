@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,6 +9,7 @@ using InMemD8.Data;
 using InMemD8.Models;
 using Microsoft.AspNetCore.Http;
 using InMemD8.Services;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace InMemD8.Controllers
 {
@@ -14,6 +17,7 @@ namespace InMemD8.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IngredientService _ingredientService;
+        
 
         public DishesController(ApplicationDbContext context, IngredientService ingredientService)
         {
@@ -219,7 +223,7 @@ namespace InMemD8.Controllers
 
         //    return View(dish);
 
-          
+
         //}
 
         //// POST: Dishes/AddToCart/6
@@ -230,9 +234,12 @@ namespace InMemD8.Controllers
         //    var d = id.ToString();
 
         //    return RedirectToAction("Index");
-           
-        //}
 
-       
-    }
+        //}
+        
+
+
+        }
+
 }
+

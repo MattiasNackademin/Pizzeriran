@@ -9,6 +9,7 @@ namespace InMemD8.Models
     {
         public decimal Total { get; set; }
         public List<CartItem> CartItems { get; set; }
-
+        //public List<DishIngredient> DishIngredients { get; set; }
+        //public List<Ingredient> Ingredients { get; set; }
     }
 }
