@@ -45,8 +45,9 @@ namespace InMemD8
                     Id = Guid.NewGuid(),
                     Name = item.Name,
                     Price = item.Price,
-                    Ingredients = item.DishIngredients.Select(x=> new CartItemIngredient(){Id = x.Id, Price = x.Price, Name = x.Name, Included = true, Selected = true}).ToList(),
+                    Ingredients = item.DishIngredients.Select(x => new CartItemIngredient() { Id = x.Ingredient.IngredientId, Included = true, Name = x.Ingredient.Name, Price = x.Ingredient.Price, Selected = true }).ToList(),
                     CategoryName = item.Category.Name
+                    
                 });
 
                 var serialized = JsonConvert.SerializeObject(deserialized);
@@ -123,7 +124,7 @@ namespace InMemD8
             foreach (CartItem item in deserialized)
             {
                 total += item.Price;
-                total += item.Ingredients.Where(x => !x.Included).Sum(x=> x.Price);
+                total += item.Ingredients.Where(x => !x.Included && x.Selected).Sum(x=> x.Price);
             }
 
             return total;

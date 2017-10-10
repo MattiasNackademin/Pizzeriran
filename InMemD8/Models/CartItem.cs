@@ -12,7 +12,6 @@ namespace InMemD8
         public Decimal Price { get; set; }
         public string CategoryName { get; set; }
         public List<CartItemIngredient> Ingredients { get; set; }
-        public Cart Cart { get; internal set; }
     }
 }
 //public int CartItemId { get; set; }

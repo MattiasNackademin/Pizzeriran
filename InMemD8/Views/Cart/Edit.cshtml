@@ -1,0 +1,98 @@
+﻿@model CartItemEditViewModel
+
+
+
+
+<div>
+    <form asp-action="Edit" asp-controller="Cart" method="post">
+        <h1>@Model.CartItem.Name</h1>
+        <input asp-for="CartItem.Id" type="hidden"/>
+        @for(var i = 0; i < Model.CartItem.Ingredients.Count; i++)
+        {
+            <label>@Model.CartItem.Ingredients[i].Name</label>
+            <input asp-for="@Model.CartItem.Ingredients[i].Selected" type="checkbox"/>
+            <input asp-for="@Model.CartItem.Ingredients[i].Id" type="hidden" value="@Model.CartItem.Ingredients[i].Id" />
+            <input asp-for="@Model.CartItem.Ingredients[i].Name" type="hidden" value="@Model.CartItem.Ingredients[i].Name" />
+            <input asp-for="@Model.CartItem.Ingredients[i].Included" type="hidden"/>
+        }
+        @for (int i = 0; i < Model.Extras.Count; i++)
+        {
+            <label>@Model.Extras[i].Name</label>
+            <input asp-for="@Model.Extras[i].Selected" type="checkbox" />
+            <input asp-for="@Model.Extras[i].Id" type="hidden" value="@Model.Extras[i].Id" />
+            <input asp-for="@Model.Extras[i].Name" type="hidden" value="@Model.Extras[i].Name" />
+            <input asp-for="@Model.Extras[i].Price" type="hidden" value="@Model.Extras[i].Price" />
+            <input asp-for="@Model.Extras[i].Included" type="hidden"/>
+        }
+        <button type="submit">Skicka</button>
+    </form>
+</div>
+
+
+
+
+
+
+
+@*@model InMemD8.Models.Dish
+@inject InMemD8.Services.IngredientService IngredientService
+@{
+    ViewData["Title"] = "Edit";
+}
+<h2>Edit</h2>
+
+<h4>Dish</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <select class="form-control" asp-for="CategoryId" asp-items="ViewBag.CatList"></select>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DishId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @foreach (var item in IngredientService.GetIngredients())
+                {
+
+                    if (Model.DishIngredients.Any(i => i.IngredientId == item.IngredientId && i.Checkbox))
+                    {
+                        <input checked type="checkbox" name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId" />
+                        <label asp-for="@item.Name">@item.Name</label>
+                        <br />
+                    }
+
+                    else
+                    {
+                        <input type="checkbox" name="checkboxes-@item.IngredientId" value="checkboxes-@item.IngredientId" />
+                        <label asp-for="@item.Name">@item.Name</label>
+
+                    }
+
+                }
+
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@

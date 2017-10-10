@@ -1,5 +1,5 @@
 ﻿@model CartViewModel
-@using InMemD8
+
 
     
 
@@ -9,8 +9,10 @@
     {
         <h2>@item.CategoryName</h2>
         <h2>@item.Name</h2>
-        <p>Ingredients: @string.Join(",", item.Ingredients.OrderBy(x => x.DishIngredients).Select(x => x.Name))</p>
+        @*<p>Ingredients: @string.Join(",", item.Ingredients.OrderBy(x => x.DishIngredients).Select(x => x.Name))</p>*@
         <p>@item.Price</p>
+        @string.Join(",", item.Ingredients.OrderBy(x => x.Name).Where(x=> x.Selected).Select(x => x.Name))
+        <br/>
         <a asp-action="Edit" asp-controller="Cart" asp-route-id="@item.Id">Ändra</a>
 
     }
