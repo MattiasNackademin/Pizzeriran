@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InMemD8.Models;
+﻿using InMemD8.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,10 +36,7 @@ namespace InMemD8.Controllers
             {
                 var total = _service.CalculateCartTotal();
 
-                /*
-                    Skicka tillbaka personen till en vy där total visas i en label t.ex
-                    Return redirect.
-                 */
+               
 
                 return View("PaySuccess", total);
             }

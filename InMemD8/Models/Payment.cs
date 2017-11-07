@@ -8,7 +8,6 @@ namespace InMemD8.Models
 {
     public class Payment
     {
-       
 
         [Required]
         public string Namn { get; set; }
@@ -18,9 +17,9 @@ namespace InMemD8.Models
         public string Gata { get; set; }
         [Required]
         public string Postnr { get; set; }
-        [Required]
+        [Required, MinLength(16)]
         public string Kortnr { get; set; }
-        [Required]
+        [Required, MinLength(3)]
         public string Cvc { get; set; }
     }
 }
