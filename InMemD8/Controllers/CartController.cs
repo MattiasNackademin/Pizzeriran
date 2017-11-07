@@ -79,5 +79,12 @@ namespace InMemD8.Controllers
 
             return RedirectToAction("CartIndex");
         }
+
+        public IActionResult Remove(Guid id)
+        {
+            _service.RemoveItem(id);
+
+            return RedirectToAction("CartIndex");
+        }
     }
 }

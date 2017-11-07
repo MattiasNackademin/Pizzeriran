@@ -63,6 +63,19 @@ namespace InMemD8
             return deserialized;
         }
 
+        public int ItemsInCart()
+        {
+            var list = _accessor.HttpContext.Session.GetString("CartItems");
+            if (list == null)
+            {
+                return 0;
+            }
+
+            var deserialized = JsonConvert.DeserializeObject<List<CartItem>>(list);
+
+            return deserialized.Count;
+        }
+
         public CartItem GetItem(Guid id)
         {
             var list = _accessor.HttpContext.Session.GetString("CartItems");

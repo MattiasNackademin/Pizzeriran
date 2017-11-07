@@ -1,0 +1,49 @@
+﻿@model Payment
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Betalningsinformation</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" asp-controller="Pay" method="post">
+            
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Namn"></label>
+                <input asp-for="Namn" class="form-control" />
+                <span asp-validation-for="Namn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tel"></label>
+                <input asp-for="Tel" class="form-control" />
+                <span asp-validation-for="Tel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gata"></label>
+                <input asp-for="Gata" class="form-control"/>
+                <span asp-validation-for="Gata" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Postnr"></label>
+                <input asp-for="Postnr" class="form-control"/>
+                <span asp-validation-for="Postnr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kortnr"></label>
+                <input asp-for="Kortnr" class="form-control" />
+                <span asp-validation-for="Kortnr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cvc"></label>
+                <input asp-for="Cvc" class="form-control" />
+                <span asp-validation-for="Cvc" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-default">Registrera</button>
+        </form>
+    </div>
+</div>
+

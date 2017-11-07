@@ -17,18 +17,21 @@ namespace InMemD8.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly IngredientService _ingredientService;
+        private readonly CartService _cartService;
         
 
-        public DishesController(ApplicationDbContext context, IngredientService ingredientService)
+        public DishesController(ApplicationDbContext context, IngredientService ingredientService, CartService cartService)
         {
             _context = context;
             _ingredientService = ingredientService;
+            _cartService = cartService;
         }
 
         // GET: Dishes
         public async Task<IActionResult> Index()
         {
             var catList = _context.Category.ToList();
+            ViewData["Antal"] = _cartService.ItemsInCart();
 
             //var dishes = await _context.
             return View(await _context.Dishes

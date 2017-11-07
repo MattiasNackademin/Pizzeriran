@@ -23,5 +23,13 @@ namespace InMemD8.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string Förnamn { get; set; }
+        public string Efternamn { get; set; }
+        public string Adress { get; set; }
+        public string Postnr { get; set; }
+        public string Ort { get; set; }
+        public string Tel { get; set; }
+       
     }
 }

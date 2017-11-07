@@ -220,7 +220,7 @@ namespace InMemD8.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email,Förnamn = model.Förnamn, Efternamn = model.Efternamn, Adress = model.Adress, Postnr = model.Postnr, Ort = model.Ort, PhoneNumber = model.Tel};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

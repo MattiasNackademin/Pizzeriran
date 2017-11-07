@@ -14,6 +14,9 @@
         @string.Join(",", item.Ingredients.OrderBy(x => x.Name).Where(x=> x.Selected).Select(x => x.Name))
         <br/>
         <a asp-action="Edit" asp-controller="Cart" asp-route-id="@item.Id">Ändra</a>
+        <a asp-action="Remove" asp-controller="Cart" asp-route-id="@item.Id">Ta bort</a>
+        <hr/>
+        <a asp-action="Index" asp-controller="Pay">Betala beställning</a>
 
     }
     

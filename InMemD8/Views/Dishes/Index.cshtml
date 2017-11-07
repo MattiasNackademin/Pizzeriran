@@ -17,7 +17,10 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-<a asp-controller="Cart" asp-action="CartIndex">Visa varukorg</a>
+@if ((int)ViewData["Antal"] != 0)
+{
+    <a asp-controller="Cart" asp-action="CartIndex">Visa varukorg @ViewData["Antal"]</a>
+}
 <table class="table">
     <thead>
     <tr>
