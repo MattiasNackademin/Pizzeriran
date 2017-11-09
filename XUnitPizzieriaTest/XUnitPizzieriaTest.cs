@@ -17,7 +17,7 @@ namespace XUnitPizzieriaTest
         {
             var ingredient = _service.GetService<IngredientService>();
             var ingredients = ingredient.GetIngredients();
-            Assert.Equal(ingredients.Count, 0);
+            Assert.Empty(ingredients);
         }
 
         public XUnitPizzieriaTest()

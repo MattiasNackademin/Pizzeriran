@@ -21,9 +21,9 @@ namespace InMemD8.Controllers
             var viewModel = new Payment();
             var user = _userManager.GetUserAsync(User).Result;
 
-            viewModel.Postnr = user.Postnr;
-            viewModel.Gata = user.Adress;
             viewModel.Namn = user.Förnamn + " " + user.Efternamn;
+            viewModel.Gata = user.Adress;
+            viewModel.Postnr = user.Postnr;
             viewModel.Tel = user.PhoneNumber;
 
             return View(viewModel);
