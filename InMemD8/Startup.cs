@@ -30,15 +30,15 @@ namespace InMemD8
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>
-            (options => options.UseSqlServer
-            (@"Data Source=DESKTOP-B5EJ238\SQLEXPRESS;Initial Catalog=Pizza;Integrated Security=True;Connect Timeout=30;"));
+            //services.AddDbContext<ApplicationDbContext>
+            //(options => options.UseSqlServer
+            //(@"Data Source=DESKTOP-B5EJ238\SQLEXPRESS;Initial Catalog=Pizza;Integrated Security=True;Connect Timeout=30;"));
 
             
            
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseInMemoryDatabase("DefaultConnection"));
+            services.AddDbContext<ApplicationDbContext>(options =>
+               options.UseInMemoryDatabase("DefaultConnection"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
